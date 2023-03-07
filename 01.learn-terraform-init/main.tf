@@ -29,7 +29,7 @@ module "nginx-pet" {
   source = "./nginx"
 
   container_name = "hello-${random_pet.dog.id}"
-  nginx_port = 8001
+  nginx_port     = 8001
 }
 
 # https://registry.terraform.io/modules/joatmon08/hello/random/latest
@@ -40,5 +40,5 @@ module "hello" {
 
   hello = random_pet.dog.id
 
-	secret_key = "secret"
+  secret_key = "secret"
 }
