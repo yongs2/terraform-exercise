@@ -19,4 +19,5 @@ terraform -version
 ```sh
 git clone https://github.com/hashicorp/learn-terraform-init 01.learn-terraform-init
 git clone https://github.com/hashicorp/learn-terraform-plan 02.learn-terraform-plan
+git clone https://github.com/hashicorp/learn-terraform-apply 03.learn-terraform-apply
 ```
