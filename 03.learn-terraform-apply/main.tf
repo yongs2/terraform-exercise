@@ -4,6 +4,8 @@ provider "random" {}
 
 provider "time" {}
 
+# Create a docker image resource
+# -> docker pull nginx:latest
 resource "docker_image" "nginx" {
   name         = "nginx:latest"
   keep_locally = true
