@@ -22,6 +22,7 @@ terraform validate
 terraform plan
 terraform apply -auto-approve -var "container_name=YetAnotherName"
 docker ps -a
+terraform output
 ```
 
 ## test
