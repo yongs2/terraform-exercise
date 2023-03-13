@@ -1,0 +1,13 @@
+global:
+  storageClass: openebs-hostpath
+  redis:
+    password: false
+master:
+  persistence:
+    size: 8Gi
+replica:
+  replicaCount: 1
+  persistence:
+    size: 8Gi
+volumePermissions:
+  enabled: true
