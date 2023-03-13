@@ -13,15 +13,16 @@
 ```sh
 terraform init
 terraform init -upgrade
+
+export TF_VAR_registry_auth="{\"address\"=\"${REGISTRY_ADDR}\",\"username\"=\"${REGISTRY_USER}\",\"password\"=\"${REGISTRY_PASS}\"}"
+echo "TF_VAR_registry_auth=${TF_VAR_registry_auth}"
+
 terraform validate
 ```
 
 ## Apply
 
 ```sh
-export TF_VAR_registry_auth="{\"address\"=\"${REGISTRY_ADDR}\",\"username\"=\"${REGISTRY_USER}\",\"password\"=\"${REGISTRY_PASS}\"}"
-echo "TF_VAR_registry_auth=${TF_VAR_registry_auth}"
-
 terraform plan
 terraform apply -auto-approve
 ```

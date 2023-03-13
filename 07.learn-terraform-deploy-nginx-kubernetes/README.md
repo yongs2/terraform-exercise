@@ -13,17 +13,18 @@
 ```sh
 terraform init
 terraform init -upgrade
+
+export TF_VAR_kube_config_path="${KUBE_CONFIG_PATH}"
+echo "TF_VAR_kube_config_path=${TF_VAR_kube_config_path}"
+export TF_VAR_nginx_node_port=${NGINX_NODE_PORT}
+echo "TF_VAR_nginx_node_port=${TF_VAR_nginx_node_port}"
+
 terraform validate
 ```
 
 ## Apply
 
 ```sh
-export TF_VAR_kube_config_path="${KUBE_CONFIG_PATH}"
-echo "TF_VAR_kube_config_path=${TF_VAR_kube_config_path}"
-export TF_VAR_nginx_node_port=${NGINX_NODE_PORT}
-echo "TF_VAR_nginx_node_port=${TF_VAR_nginx_node_port}"
-
 terraform plan
 terraform apply -auto-approve
 ```
