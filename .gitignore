@@ -9,6 +9,7 @@
 # Crash log files
 crash.log
 .*.config
+.*.profile
 *.log
 
 # Ignore any .tfvars files that are generated automatically for each Terraform run. Most
