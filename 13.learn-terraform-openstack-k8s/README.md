@@ -29,7 +29,7 @@ terraform apply -auto-approve -var "instance_prefix=my5g-test" -var "instance_co
 ## test
 
 ```sh
-VM_IPS=$(terraform show -json | jq -r '.values.outputs.instances[].address')
+VM_IPS=$(terraform show -json | jq -r '.values.outputs[].value[].address')
 for VM_IP in ${VM_IPS}; do
   echo ${VM_IP}
   ssh ubuntu@${VM_IP} -i ~/.ssh/id_rsa
