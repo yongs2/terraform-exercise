@@ -28,7 +28,7 @@ resource "openstack_compute_instance_v2" "basenode" {
   }
 }
 
-# Kubernetes 설치 - basenode
+# install Kubernetes - basenode
 resource "null_resource" "install_kuberernetes_basenode" {
   depends_on = [openstack_compute_instance_v2.basenode]
 
@@ -46,9 +46,9 @@ resource "null_resource" "install_kuberernetes_basenode" {
   }
 }
 
-# 스냅샷 촬영 및 이미지 생성을 수행하는 null_resource
+# null_resource to take snapshots and create images
 resource "null_resource" "snapshot_and_create_image" {
-  # VM이 생성된 후에 실행됩니다.
+  # Runs after the VM is created.
   depends_on = [
     openstack_compute_instance_v2.basenode,
     null_resource.install_kuberernetes_basenode,
@@ -58,21 +58,20 @@ resource "null_resource" "snapshot_and_create_image" {
     instance_id = openstack_compute_instance_v2.basenode.id
   }
 
-  # 스냅샷 촬영과 이미지 생성을 위한 스크립트
+  # Scripts for taking snapshots and creating images
   provisioner "local-exec" {
     command = <<EOF
-      pwd && ls -la
+      # Setting environment variables to run openstack
       source /workspace/.openstack.profile
-      mkdir -p /workspace/tmp
       
-      # 이전 생성 이미지 삭제
+      # Delete previously created image
       openstack image delete ${var.snapshot} && echo "delete old image ${var.snapshot}"
       
-      # 스냅샷 촬영
+      # Create snapshot image
       echo "snapshot.instance.id: [${openstack_compute_instance_v2.basenode.id}]"
       openstack server image create --name ${var.snapshot} ${openstack_compute_instance_v2.basenode.id}
       
-      # 이미지가 저장될 때까지 대기하기
+      # Wait for image to save
       while true; do
         openstack image show -f value -c status "${var.snapshot}" > status.log
         echo "image status: [$(cat status.log)]"
