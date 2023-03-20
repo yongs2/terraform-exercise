@@ -29,7 +29,7 @@ sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/dock
 sudo dnf install docker-ce -y
 sudo systemctl start docker
 sudo systemctl enable docker
-sudo chmod 666 /var/run/docker.sock
+sudo chmod 666 /var/run/docker.sock && echo ">>> docker.sock=$(ls -al /var/run/docker.sock)"
 
 # Step 5) Install kubelet, Kubeadm and kubectl
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
@@ -42,5 +42,9 @@ repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 exclude=kubelet kubeadm kubectl
 EOF
+sudo echo "install kubelet, kubeadm, kubectl"
 sudo dnf install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+sudo sleep 10
 sudo systemctl enable --now kubelet
+sudo sleep 10
+echo echo "kubelet=$(systemctl status kubelet)"
