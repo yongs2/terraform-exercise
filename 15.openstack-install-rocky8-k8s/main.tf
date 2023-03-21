@@ -16,11 +16,11 @@ resource "openstack_compute_keypair_v2" "keypair" {
 
 # openstack server list; openstack server show master
 resource "openstack_compute_instance_v2" "master" {
-  count      = 1
-  name       = format("${var.instance_prefix}-%02d", count.index + 1)
-  image_name = var.image
-  flavor_id  = openstack_compute_flavor_v2.flavor.id
-  key_pair   = openstack_compute_keypair_v2.keypair.name
+  count           = 1
+  name            = format("${var.instance_prefix}-%02d", count.index + 1)
+  image_name      = var.image
+  flavor_id       = openstack_compute_flavor_v2.flavor.id
+  key_pair        = openstack_compute_keypair_v2.keypair.name
   security_groups = ["default"]
 
   network {
@@ -33,11 +33,11 @@ resource "openstack_compute_instance_v2" "master" {
 resource "openstack_compute_instance_v2" "worker" {
   depends_on = [openstack_compute_instance_v2.master] # master 생성 후 worker 를 생성하도록
 
-  count      = var.instance_count - 1 # master 를 제외한 worker 노드의 수
-  name       = format("${var.instance_prefix}-%02d", count.index + 2)
-  image_name = var.image
-  flavor_id  = openstack_compute_flavor_v2.flavor.id
-  key_pair   = openstack_compute_keypair_v2.keypair.name
+  count           = var.instance_count - 1 # master 를 제외한 worker 노드의 수
+  name            = format("${var.instance_prefix}-%02d", count.index + 2)
+  image_name      = var.image
+  flavor_id       = openstack_compute_flavor_v2.flavor.id
+  key_pair        = openstack_compute_keypair_v2.keypair.name
   security_groups = ["default"]
 
   network {
@@ -50,7 +50,7 @@ resource "openstack_compute_instance_v2" "worker" {
 resource "null_resource" "install_kuberernetes_master" {
   depends_on = [openstack_compute_instance_v2.master]
 
-  count           = 1
+  count = 1
 
   provisioner "remote-exec" {
     scripts = [
@@ -75,7 +75,6 @@ resource "null_resource" "install_kuberernetes_master" {
     EOF
   }
 }
-
 
 # kubernetes 설치 - worker
 resource "null_resource" "install_kubernetes_worker" {
