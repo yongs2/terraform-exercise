@@ -66,6 +66,7 @@ resource "null_resource" "snapshot_and_create_image" {
       
       # Delete previously created image
       openstack image delete ${var.snapshot} && echo "delete old image ${var.snapshot}"
+      sleep 10
       
       # Create snapshot image
       echo "snapshot.instance.id: [${openstack_compute_instance_v2.basenode.id}]"
