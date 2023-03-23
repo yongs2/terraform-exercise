@@ -1,7 +1,7 @@
 # Refer: https://docs.nhncloud.com/ko/Compute/Instance/ko/terraform-guide/
 # Centos-7 으로 시작하는 이미지 중 최근 이미지 조회
 data "openstack_images_image_v2" "centos7" {
-  name_regex        = "CentOS-7[\\S]*"
+  name_regex  = "CentOS-7[\\S]*"
   most_recent = true
 }
 
