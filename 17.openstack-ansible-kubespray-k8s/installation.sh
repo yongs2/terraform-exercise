@@ -40,6 +40,35 @@ sudo pip3.9 install ruamel_yaml &>> $INSTALL_LOG
 sudo pip3.9 install -r requirements.txt &>> $INSTALL_LOG
 cp -rfp inventory/sample inventory/mycluster
 
+YAML_FILE="inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml"
+echo "fix $YAML_FILE" &>> $INSTALL_LOG
+# for docker
+sed -i 's/resolvconf_mode: host_resolvconf/resolvconf_mode: docker_dns/g' $YAML_FILE
+sed -i 's/container_manager: containerd/container_manager: docker/g' $YAML_FILE
+# for metallb
+sed -i 's/kube_proxy_strict_arp: false/kube_proxy_strict_arp: true/g' $YAML_FILE
+# for network
+sed -i 's/kube_service_addresses: 10.233.0.0\/18/kube_service_addresses: 10.96.0.0\/18/g' $YAML_FILE
+sed -i 's/kube_pods_subnet: 10.233.64.0\/18/kube_pods_subnet: 10.32.0.0\/18/g' $YAML_FILE
+# etc
+# sed -i 's/kube_log_level: 2/kube_log_level: 0/g' $YAML_FILE
+sed -i 's/kubernetes_audit: false/kubernetes_audit: true/g' $YAML_FILE
+
+YAML_FILE="inventory/mycluster/group_vars/k8s_cluster/addons.yml"
+echo "fix $YAML_FILE" &>> $INSTALL_LOG
+sed -i 's/# dashboard_enabled: false/dashboard_enabled: true/g' $YAML_FILE
+sed -i 's/helm_enabled: false/helm_enabled: true/g' $YAML_FILE
+sed -i 's/metrics_server_enabled: false/metrics_server_enabled: true/g' $YAML_FILE
+sed -i 's/metallb_enabled: false/metallb_enabled: true/g' $YAML_FILE
+sed -i 's/# metallb_ip_range:/metallb_ip_range:/g' $YAML_FILE
+sed -i 's/#   - \"10.5.0.50-10.5.0.99\"/   - \"'${metallb_ip_range}'\"/g' $YAML_FILE
+
+YAML_FILE="inventory/mycluster/group_vars/all/etcd.yml"
+echo "fix $YAML_FILE" &>> $INSTALL_LOG
+# for docker
+sed -i 's/# container_manager: containerd/container_manager: docker/g' $YAML_FILE
+sed -i 's/etcd_deployment_type: host/etcd_deployment_type: docker/g' $YAML_FILE
+
 ### fix kubespray master worker separation bug ###
 sed -i '369s/SCALE_THRESHOLD/0/' contrib/inventory_builder/inventory.py
 

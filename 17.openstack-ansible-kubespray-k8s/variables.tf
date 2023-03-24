@@ -51,9 +51,13 @@ variable "fixed_ip_v4" {
     "192.168.5.64", // k8s-worker-002
     "192.168.5.65", // k8s-worker-003
     "192.168.5.66", // ansible
-    "192.168.5.67",
-    "192.168.5.77",
-    "192.168.5.78",
-    "192.168.5.79",
+    # "192.168.5.77", // metallb_ip_range
+    # "192.168.5.78", // metallb_ip_range
+    # "192.168.5.79", // metallb_ip_range
   ]
+}
+
+variable "metallb_ip_range" {
+  type = string
+  default = "192.168.5.77-192.168.5.79"
 }
