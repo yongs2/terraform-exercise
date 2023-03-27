@@ -11,6 +11,8 @@ resource "null_resource" "kube_config_for_rocky" {
   # make /home/rocky/.kube/config
   provisioner "remote-exec" {
     inline = [
+      "sudo usermod -aG docker rocky",
+      "newgrp docker",
       "mkdir -p /home/rocky/.kube",
       "sudo cp -i /etc/kubernetes/admin.conf /home/rocky/.kube/config",
       "sudo chown $(id -u):$(id -g) /home/rocky/.kube/config",
@@ -30,12 +32,6 @@ resource "null_resource" "kube_config_for_rocky" {
 
   # make local file kubeconfig
   provisioner "local-exec" {
-    command = <<EOF
-      scp \
-        -o StrictHostKeyChecking=no \
-        -o UserKnownHostsFile=/dev/null \
-        rocky@${openstack_compute_instance_v2.k8s-master[count.index].access_ip_v4}:/home/rocky/.kube/config \
-        ./${openstack_compute_instance_v2.k8s-master[count.index].name}.kubeconfig
-    EOF
+    command = "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null rocky@${openstack_compute_instance_v2.k8s-master[count.index].access_ip_v4}:/home/rocky/.kube/config ./${openstack_compute_instance_v2.k8s-master[count.index].name}.kubeconfig"
   }
 }
