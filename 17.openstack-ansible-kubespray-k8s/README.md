@@ -15,7 +15,7 @@ ssh-keygen -t rsa && ls -al /root/.ssh/id_rsa.pub
 terraform init
 terraform init -upgrade
 
-terraform validate
+terraform fmt -recursive && terraform validate
 ```
 
 ## Apply
@@ -23,8 +23,8 @@ terraform validate
 ```sh
 export TF_VAR_fixed_ip_v4='["192.168.5.48","192.168.5.59","192.168.5.60"]'
 
-terraform plan -var "instance_prefix=my5g-test" -var "master_vm_count=1" -var "worker_vm_count=1"
-terraform apply -auto-approve -var "instance_prefix=my5g-test" -var "master_vm_count=1" -var "worker_vm_count=1"
+terraform plan -var "master_vm_count=1" -var "worker_vm_count=1"
+terraform apply -auto-approve -var "master_vm_count=1" -var "worker_vm_count=1"
 ```
 
 ## test

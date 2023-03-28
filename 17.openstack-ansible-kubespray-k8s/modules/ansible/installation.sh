@@ -31,7 +31,7 @@ sudo pip3.9 install yq &>> $INSTALL_LOG
 
 ### clone kubespray ###
 echo start clone kubespray &>> $INSTALL_LOG
-git clone https://github.com/kubernetes-sigs/kubespray.git &>> $INSTALL_LOG
+git clone -b ${kubespray_version} https://github.com/kubernetes-sigs/kubespray.git &>> $INSTALL_LOG
 echo kubespray cloend. &>> $INSTALL_LOG
 
 ### [prepare kubespray](https://github.com/kubernetes-sigs/kubespray) ###

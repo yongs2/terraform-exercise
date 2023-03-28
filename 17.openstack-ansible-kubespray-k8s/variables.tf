@@ -24,7 +24,7 @@ variable "network" {
 }
 
 variable "instance_prefix" {
-  default = "kube-node"
+  default = "kubespray"
 }
 
 variable "master_vm_count" {
@@ -60,4 +60,18 @@ variable "fixed_ip_v4" {
 variable "metallb_ip_range" {
   type    = string
   default = "192.168.5.64-192.168.5.66"
+}
+
+variable "kubespray_version" {
+  type    = string
+  default = "v2.21.0"
+
+  # kubespray tag / kuberntes version
+  # master        / v1.26.3
+  # v2.21.0       / v1.25.6
+  # v2.19.1       / v1.23.7 / ansible-playbook -b -i nef-cluster/inventory.ini .kubespray/cluster.yml -e kube_version=v1.23.5 -e @nef-cluster/extra.ini -v
+  # v2.19.0       / v1.23.7
+  # v2.18.2       / v1.22.8
+  # v2.18.1       / v1.22.8
+  # v2.18.0       / v1.22.5
 }

@@ -22,8 +22,8 @@ terraform validate
 ```sh
 export TF_VAR_fixed_ip_v4="192.168.5.48"
 
-terraform plan -var "instance_prefix=my5g-test"
-terraform apply -auto-approve -var "instance_prefix=my5g-test"
+terraform plan -var "instance_prefix=k8s-test"
+terraform apply -auto-approve -var "instance_prefix=k8s-test"
 ```
 
 ## test
