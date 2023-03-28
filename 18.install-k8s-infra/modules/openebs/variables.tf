@@ -5,7 +5,10 @@ variable "kube_config_path" {
   description = "kube config path"
 }
 
-variable "nginx_node_port" {
-  type        = number
-  description = "nginx node port"
+variable "chart_version" {
+  default = "3.5.0"
+}
+
+variable "namespace" {
+  default = "openebs"
 }

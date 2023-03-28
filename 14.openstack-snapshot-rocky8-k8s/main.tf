@@ -16,10 +16,10 @@ resource "openstack_compute_keypair_v2" "keypair" {
 
 # openstack server list; openstack server show basenode
 resource "openstack_compute_instance_v2" "basenode" {
-  name       = format("${var.instance_prefix}-%02d", 1)
-  image_name = var.image
-  flavor_id  = openstack_compute_flavor_v2.flavor.id
-  key_pair   = openstack_compute_keypair_v2.keypair.name
+  name            = format("${var.instance_prefix}-%02d", 1)
+  image_name      = var.image
+  flavor_id       = openstack_compute_flavor_v2.flavor.id
+  key_pair        = openstack_compute_keypair_v2.keypair.name
   security_groups = ["default"]
 
   network {

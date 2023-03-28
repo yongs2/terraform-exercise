@@ -22,7 +22,7 @@ resource "docker_container" "dind" {
 
   start = true
 
-  command = ["/bin/sh", "-c", 
+  command = ["/bin/sh", "-c",
     <<SH
     set -e
     apk --no-cache add openrc

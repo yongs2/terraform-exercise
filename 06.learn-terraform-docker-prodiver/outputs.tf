@@ -10,8 +10,8 @@ output "image_centos7" {
 
 output "image_centos8" {
   description = "ID of the Docker image"
-  value       = {
-    id: docker_image.centos8.id
-    name: docker_image.centos8.name
+  value = {
+    id : docker_image.centos8.id
+    name : docker_image.centos8.name
   }
 }

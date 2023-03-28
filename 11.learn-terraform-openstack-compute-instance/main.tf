@@ -17,8 +17,8 @@ resource "openstack_compute_keypair_v2" "basic" {
 
 # openstack server list; openstack server show basic
 resource "openstack_compute_instance_v2" "basic" {
-  name       = "basic"
-  image_name = var.image
+  name            = "basic"
+  image_name      = var.image
   flavor_id       = openstack_compute_flavor_v2.C1M2D20.id
   key_pair        = openstack_compute_keypair_v2.basic.name
   security_groups = ["default"]

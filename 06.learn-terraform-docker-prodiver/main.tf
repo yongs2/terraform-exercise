@@ -2,7 +2,7 @@ provider "docker" {
   registry_auth {
     username = var.registry_auth.username
     password = var.registry_auth.password
-    address = var.registry_auth.address
+    address  = var.registry_auth.address
   }
 }
 
