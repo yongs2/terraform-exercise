@@ -58,6 +58,6 @@ variable "fixed_ip_v4" {
 }
 
 variable "metallb_ip_range" {
-  type = string
+  type    = string
   default = "192.168.5.64-192.168.5.66"
 }

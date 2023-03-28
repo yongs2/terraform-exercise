@@ -1,9 +1,16 @@
 provider "openstack" {}
 
 # openstack flavor list; openstack flavor show C2M2D20
-resource "openstack_compute_flavor_v2" "flavor" {
+resource "openstack_compute_flavor_v2" "ansible-flavor" {
   name  = "C2M2D20"
   ram   = "2048"
+  vcpus = "2"
+  disk  = "20"
+}
+
+resource "openstack_compute_flavor_v2" "k8s-flavor" {
+  name  = "C2M8D20"
+  ram   = "8192"
   vcpus = "2"
   disk  = "20"
 }

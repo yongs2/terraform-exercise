@@ -10,7 +10,7 @@ data "template_file" "installation" {
     masterips          = join(" ", "${openstack_compute_instance_v2.k8s-master.*.access_ip_v4}") # var.master_ips
     workerips          = join(" ", "${openstack_compute_instance_v2.k8s-worker.*.access_ip_v4}") # var.worker_ips
     kube_control_hosts = var.master_vm_count                                                     # KUBE_CONTROL_HOSTS
-    metallb_ip_range   = var.metallb_ip_range # for metallb
+    metallb_ip_range   = var.metallb_ip_range                                                    # for metallb
   })
 }
 
@@ -22,7 +22,7 @@ resource "openstack_compute_instance_v2" "ansible" {
 
   name            = "ansible"
   image_name      = var.image
-  flavor_id       = openstack_compute_flavor_v2.flavor.id
+  flavor_id       = openstack_compute_flavor_v2.ansible-flavor.id
   key_pair        = openstack_compute_keypair_v2.keypair.name
   security_groups = ["default"]
   # user_data       = data.template_file.installation.rendered

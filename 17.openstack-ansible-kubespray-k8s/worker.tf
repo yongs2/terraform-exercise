@@ -3,7 +3,7 @@ resource "openstack_compute_instance_v2" "k8s-worker" {
   count           = var.worker_vm_count
   name            = format("k8s-worker-%02d", count.index + 1)
   image_name      = var.image
-  flavor_id       = openstack_compute_flavor_v2.flavor.id
+  flavor_id       = openstack_compute_flavor_v2.k8s-flavor.id
   key_pair        = openstack_compute_keypair_v2.keypair.name
   security_groups = ["default"]
 
