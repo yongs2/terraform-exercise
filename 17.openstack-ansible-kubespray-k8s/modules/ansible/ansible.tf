@@ -11,17 +11,11 @@ data "template_file" "installation" {
 }
 
 resource "openstack_compute_instance_v2" "ansible" {
-  # depends_on = [
-  #   openstack_compute_instance_v2.k8s-master,
-  #   openstack_compute_instance_v2.k8s-worker,
-  # ]
-
   name            = "ansible"
   image_name      = var.image
   flavor_id       = var.flavor_id
   key_pair        = var.key_pair
   security_groups = ["default"]
-  # user_data       = data.template_file.installation.rendered
 
   network {
     name        = var.network_name

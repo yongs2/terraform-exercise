@@ -45,8 +45,8 @@ echo "fix $YAML_FILE" &>> $INSTALL_LOG
 # for docker
 sed -i 's/resolvconf_mode: host_resolvconf/resolvconf_mode: docker_dns/g' $YAML_FILE
 sed -i 's/container_manager: containerd/container_manager: docker/g' $YAML_FILE
-# # for metallb
-# sed -i 's/kube_proxy_strict_arp: false/kube_proxy_strict_arp: true/g' $YAML_FILE
+# for metallb
+sed -i 's/kube_proxy_strict_arp: false/kube_proxy_strict_arp: true/g' $YAML_FILE
 # for network
 sed -i 's/kube_service_addresses: 10.233.0.0\/18/kube_service_addresses: 10.96.0.0\/18/g' $YAML_FILE
 sed -i 's/kube_pods_subnet: 10.233.64.0\/18/kube_pods_subnet: 10.32.0.0\/18/g' $YAML_FILE
@@ -59,11 +59,11 @@ echo "fix $YAML_FILE" &>> $INSTALL_LOG
 sed -i 's/# dashboard_enabled: false/dashboard_enabled: true/g' $YAML_FILE
 sed -i 's/helm_enabled: false/helm_enabled: true/g' $YAML_FILE
 sed -i 's/metrics_server_enabled: false/metrics_server_enabled: true/g' $YAML_FILE
-# sed -i 's/metallb_enabled: false/metallb_enabled: true/g' $YAML_FILE
-# sed -i 's/# metallb_ip_range:/metallb_ip_range:/g' $YAML_FILE
-# sed -i 's/#   - \"10.5.0.50-10.5.0.99\"/   - \"'${metallb_ip_range}'\"/g' $YAML_FILE
-# sed -i 's/# metallb_pool_name: \"loadbalanced\"/metallb_pool_name: \"loadbalanced\"/g' $YAML_FILE
-# sed -i 's/# metallb_protocol: \"layer2\"/metallb_protocol: \"layer2\"/g' $YAML_FILE
+sed -i 's/metallb_enabled: false/metallb_enabled: true/g' $YAML_FILE
+sed -i 's/# metallb_ip_range:/metallb_ip_range:/g' $YAML_FILE
+sed -i 's/#   - \"10.5.0.50-10.5.0.99\"/   - \"'${metallb_ip_range}'\"/g' $YAML_FILE
+sed -i 's/# metallb_pool_name: \"loadbalanced\"/metallb_pool_name: \"loadbalanced\"/g' $YAML_FILE
+sed -i 's/# metallb_protocol: \"layer2\"/metallb_protocol: \"layer2\"/g' $YAML_FILE
 
 YAML_FILE="inventory/mycluster/group_vars/all/etcd.yml"
 echo "fix $YAML_FILE" &>> $INSTALL_LOG
@@ -89,8 +89,6 @@ ansible-playbook -i inventory/mycluster/hosts.yaml \
 -e ansible_user=$User_Name \
 -e https_proxy=${http_proxy} \
 -e http_proxy=${http_proxy} \
--e metrics_server_enabled=true \
--e ingress_nginx_enabled=true \
 -e auto_renew_certificates=true \
 -b cluster.yml" > install.sh
 chmod +x install.sh
