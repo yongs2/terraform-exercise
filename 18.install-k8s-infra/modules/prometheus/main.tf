@@ -44,6 +44,6 @@ resource "helm_release" "prometheus" {
   }
 }
 
-output "chart" {
+output "prometheus" {
   value = helm_release.prometheus.metadata
 }

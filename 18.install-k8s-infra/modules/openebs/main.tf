@@ -12,6 +12,6 @@ resource "helm_release" "openebs" {
   timeout          = 600 # default is 300
 }
 
-output "chart" {
+output "openebs" {
   value = helm_release.openebs.metadata
 }

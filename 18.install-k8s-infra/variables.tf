@@ -47,6 +47,18 @@ variable "grafana" {
   }
 }
 
+# istio
+variable "istio" {
+  type = object({
+    chart_version = string
+    namespace     = string
+  })
+  default = {
+    chart_version = "1.17.1"
+    namespace     = "istio-system"
+  }
+}
+
 # jaeger
 variable "jaeger" {
   type = object({

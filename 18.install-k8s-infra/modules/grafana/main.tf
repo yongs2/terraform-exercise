@@ -42,6 +42,6 @@ resource "helm_release" "grafana" {
   }
 }
 
-output "chart" {
+output "grafana" {
   value = helm_release.grafana.metadata
 }

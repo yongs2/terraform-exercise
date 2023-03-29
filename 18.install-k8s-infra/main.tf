@@ -23,13 +23,21 @@ module "grafana" {
   service_nodePort = var.grafana.service_nodePort
 }
 
-module "jaeger" {
-  source           = "./modules/jaeger"
+module "istio" {
+  source           = "./modules/istio"
   kube_config_path = var.kube_config_path
-  chart_version    = var.jaeger.chart_version
-  namespace        = var.jaeger.namespace
-  service_nodePort = var.jaeger.service_nodePort
+  chart_version    = var.istio.chart_version
+  namespace        = var.istio.namespace
 }
+
+# FIXME: Excluded due to high cassandra memory usage
+# module "jaeger" {
+#   source           = "./modules/jaeger"
+#   kube_config_path = var.kube_config_path
+#   chart_version    = var.jaeger.chart_version
+#   namespace        = var.jaeger.namespace
+#   service_nodePort = var.jaeger.service_nodePort
+# }
 
 output "msg" {
   value = "all instacnes are deployed"

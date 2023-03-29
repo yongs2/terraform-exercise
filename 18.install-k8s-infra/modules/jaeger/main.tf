@@ -26,6 +26,6 @@ resource "helm_release" "jaeger" {
   }
 }
 
-output "chart" {
+output "jaeger" {
   value = helm_release.jaeger.metadata
 }
