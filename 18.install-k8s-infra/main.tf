@@ -19,6 +19,7 @@ module "grafana" {
   kube_config_path = var.kube_config_path
   chart_version    = var.grafana.chart_version
   namespace        = var.grafana.namespace
+  storageClass     = var.prometheus.storageClass
   service_nodePort = var.grafana.service_nodePort
 }
 

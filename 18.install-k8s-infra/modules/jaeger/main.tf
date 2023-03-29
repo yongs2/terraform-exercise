@@ -9,6 +9,7 @@ resource "helm_release" "jaeger" {
   repository       = "https://jaegertracing.github.io/helm-charts"
   chart            = "jaeger"
   version          = var.chart_version
+  timeout          = 600 # default is 300
 
   set {
     name  = "server.global.scrape_interval"
@@ -23,4 +24,8 @@ resource "helm_release" "jaeger" {
     name  = "query.service.nodePort"
     value = var.service_nodePort
   }
+}
+
+output "chart" {
+  value = helm_release.jaeger.metadata
 }

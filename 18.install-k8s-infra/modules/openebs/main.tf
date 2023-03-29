@@ -9,4 +9,9 @@ resource "helm_release" "openebs" {
   repository       = "https://openebs.github.io/charts"
   chart            = "openebs"
   version          = var.chart_version
+  timeout          = 600 # default is 300
+}
+
+output "chart" {
+  value = helm_release.openebs.metadata
 }

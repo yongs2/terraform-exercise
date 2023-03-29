@@ -14,6 +14,7 @@ terraform init -upgrade
 
 export TF_VAR_kube_config_path="/workspace/17.openstack-ansible-kubespray-k8s/k8s-master-01.kubeconfig"
 echo "TF_VAR_kube_config_path=${TF_VAR_kube_config_path}"
+ls -la $TF_VAR_kube_config_path
 
 terraform validate
 ```

@@ -9,6 +9,7 @@ resource "helm_release" "grafana" {
   repository       = "https://grafana.github.io/helm-charts"
   chart            = "grafana"
   version          = var.chart_version
+  timeout          = 600 # default is 300
 
   // https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
   set {
@@ -39,4 +40,8 @@ resource "helm_release" "grafana" {
     name  = "plugins"
     value = "{grafana-polystat-panel,grafana-clock-panel,vonage-status-panel,btplc-status-dot-panel,agenty-flowcharting-panel,ryantxu-annolist-panel,corpglory-progresslist-panel,briangann-datatable-panel,flant-statusmap-panel,grafana-piechart-panel,camptocamp-prometheus-alertmanager-datasource}"
   }
+}
+
+output "chart" {
+  value = helm_release.grafana.metadata
 }

@@ -10,7 +10,7 @@
 - Initialize the Terraform configuration.
 
 ```sh
-ssh-keygen -t rsa && ls -al /root/.ssh/id_rsa.pub
+rm -f ~/.ssh/id_rsa && ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa && ls -al /root/.ssh/id_rsa.pub
 
 terraform init
 terraform init -upgrade

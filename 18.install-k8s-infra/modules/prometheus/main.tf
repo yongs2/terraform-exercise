@@ -9,6 +9,7 @@ resource "helm_release" "prometheus" {
   repository       = "https://prometheus-community.github.io/helm-charts"
   chart            = "prometheus"
   version          = var.chart_version
+  timeout          = 600 # default is 300
 
   // https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus/values.yaml
   set {
@@ -41,4 +42,8 @@ resource "helm_release" "prometheus" {
     name  = "nodeExporter.hostNetwork"
     value = "false"
   }
+}
+
+output "chart" {
+  value = helm_release.prometheus.metadata
 }
