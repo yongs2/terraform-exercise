@@ -13,6 +13,26 @@ resource "openstack_compute_instance_v2" "k8s-worker" {
   }
 }
 
+# install sctp
+resource "null_resource" "install_sctp_worker" {
+  depends_on = [openstack_compute_instance_v2.k8s-worker]
+
+  count = var.worker_vm_count
+
+  provisioner "remote-exec" {
+    scripts = [
+      "${path.module}/install.sh",
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = "rocky"
+      private_key = var.private_key
+      host        = openstack_compute_instance_v2.k8s-worker[count.index].access_ip_v4
+    }
+  }
+}
+
 output "worker_ips" {
   value = join(" ", "${openstack_compute_instance_v2.k8s-worker.*.access_ip_v4}")
 }

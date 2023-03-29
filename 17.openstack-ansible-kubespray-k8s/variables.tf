@@ -62,6 +62,8 @@ variable "metallb_ip_range" {
   default = "192.168.5.64-192.168.5.66"
 }
 
+# KUBE_SPRAY_VER=`curl -s "https://api.github.com/repos/kubernetes-sigs/kubespray/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/'`
+# echo "KUBE_SPRAY_VER=${KUBE_SPRAY_VER}"
 variable "kubespray_version" {
   type    = string
   default = "v2.21.0"
