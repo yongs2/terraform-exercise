@@ -24,3 +24,20 @@ variable "availability_zone_name" {
 variable "network_name" {
   default = "management"
 }
+
+variable "subnet_name" {
+  default = "management"
+}
+
+variable "fixed_ip_v4" {
+  default = "192.168.5.48"
+}
+
+variable "allowed_address_pairs" {
+  type = list(string)
+  default = [
+    "192.168.5.64",
+    "192.168.5.65",
+    "192.168.5.66"
+  ]
+}

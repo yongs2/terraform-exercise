@@ -16,7 +16,7 @@ id
 EONG
 
 mkdir -p $HOME/.kube &>> $INSTALL_LOG
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config &>> $INSTALL_LOG
+sudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config &>> $INSTALL_LOG
 sudo chown $(id -u):$(id -g) $HOME/.kube/config &>> $INSTALL_LOG
 sed -i 's/127.0.0.1/'$(hostname -i)'/g' $HOME/.kube/config &>> $INSTALL_LOG
 kubectl taint nodes --all node-role.kubernetes.io/control-plane- &>> $INSTALL_LOG
