@@ -16,7 +16,7 @@ export TF_VAR_kube_config_path="${KUBE_CONFIG_PATH}"
 echo "TF_VAR_kube_config_path=${TF_VAR_kube_config_path}"
 ls -la $TF_VAR_kube_config_path
 
-terraform validate
+terraform fmt -recursive && terraform validate
 ```
 
 ## Apply

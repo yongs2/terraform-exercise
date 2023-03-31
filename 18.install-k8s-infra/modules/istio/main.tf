@@ -29,15 +29,15 @@ resource "helm_release" "istio-istiod" {
   timeout          = 600 # default is 300
 }
 
-# helm install istio-ingress istio/gateway -n istio-system --wait
-# helm list -n istio-system; helm show chart istio/gateway; helm get values istio-ingress --all -n istio-system
-resource "helm_release" "istio-ingress" {
+# helm install istio-ingressgateway istio/gateway -n istio-system --wait
+# helm list -n istio-system; helm show chart istio/gateway; helm get values istio-ingressgateway --all -n istio-system
+resource "helm_release" "istio-ingressgateway" {
   depends_on = [
     helm_release.istio-base,
     helm_release.istio-istiod
   ]
 
-  name             = "istio-ingress"
+  name             = "istio-ingressgateway"
   namespace        = var.namespace
   create_namespace = true
   repository       = "https://istio-release.storage.googleapis.com/charts"
@@ -55,6 +55,6 @@ output "istio-istiod" {
   value = helm_release.istio-istiod.metadata
 }
 
-output "istio-ingress" {
-  value = helm_release.istio-ingress.metadata
+output "istio-ingressgateway" {
+  value = helm_release.istio-ingressgateway.metadata
 }
