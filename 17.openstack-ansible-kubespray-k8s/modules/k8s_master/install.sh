@@ -15,6 +15,7 @@ echo "hello from within newgrp"
 id
 EONG
 
+# master only
 mkdir -p $HOME/.kube &>> $INSTALL_LOG
 sudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config &>> $INSTALL_LOG
 sudo chown $(id -u):$(id -g) $HOME/.kube/config &>> $INSTALL_LOG

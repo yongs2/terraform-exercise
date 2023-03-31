@@ -18,6 +18,11 @@ variable "network_name" {
   type = string
 }
 
+# openstack subnet list
+variable "subnet_name" {
+  type = string
+}
+
 variable "flavor_id" {
   type = string
 }
@@ -35,5 +40,10 @@ variable "worker_vm_count" {
 }
 
 variable "fixed_ip_v4" {
+  type = list(string)
+}
+
+# The list of IP addresses to be used by metallb must also be set in the allowed_address_pairs of the openstack port.
+variable "allowed_address_pairs" {
   type = list(string)
 }

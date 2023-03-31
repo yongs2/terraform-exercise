@@ -18,6 +18,6 @@ resource "null_resource" "kube_config_for_rocky" {
 
   # make local file kubeconfig
   provisioner "local-exec" {
-    command = "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null rocky@${var.master_ips[count.index]}:/home/rocky/.kube/config ${path.module}/${format("k8s-master-%02d", count.index + 1)}.kubeconfig"
+    command = "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null rocky@${var.master_ips[count.index]}:/home/rocky/.kube/config ${var.output_dir}/${format("k8s-master-%02d", count.index + 1)}.kubeconfig"
   }
 }

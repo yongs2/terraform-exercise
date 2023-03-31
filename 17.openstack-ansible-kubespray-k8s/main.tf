@@ -37,20 +37,21 @@ module "ansible" {
 }
 
 module "k8s_instances" {
-  source          = "./modules/k8s_instances"
-  flavor_id       = openstack_compute_flavor_v2.k8s-flavor.id
-  key_pair        = openstack_compute_keypair_v2.keypair.name
-  private_key     = file("${var.ssh_key_file}")
-  image           = var.image
-  network_name    = var.network.name
-  master_vm_count = var.master_vm_count
-  worker_vm_count = var.worker_vm_count
-  fixed_ip_v4     = var.fixed_ip_v4
+  source                = "./modules/k8s_instances"
+  flavor_id             = openstack_compute_flavor_v2.k8s-flavor.id
+  key_pair              = openstack_compute_keypair_v2.keypair.name
+  private_key           = file("${var.ssh_key_file}")
+  image                 = var.image
+  network_name          = var.network.name
+  subnet_name           = var.subnet.name
+  master_vm_count       = var.master_vm_count
+  worker_vm_count       = var.worker_vm_count
+  fixed_ip_v4           = var.fixed_ip_v4
+  allowed_address_pairs = var.allowed_address_pairs
 }
 
 module "k8s_master" {
   depends_on = [
-    module.k8s_instances,
     module.ansible,
   ]
 
@@ -58,4 +59,5 @@ module "k8s_master" {
   private_key     = file("${var.ssh_key_file}")
   master_vm_count = var.master_vm_count
   master_ips      = split(" ", module.k8s_instances.master_ips) # array
+  output_dir      = var.output_dir
 }

@@ -23,6 +23,16 @@ variable "network" {
   }
 }
 
+# openstack subnet list
+variable "subnet" {
+  type = object({
+    name = string
+  })
+  default = {
+    name = "management"
+  }
+}
+
 variable "instance_prefix" {
   default = "kubespray"
 }
@@ -57,6 +67,17 @@ variable "fixed_ip_v4" {
   ]
 }
 
+# The list of IP addresses to be used by metallb must also be set in the allowed_address_pairs of the openstack port.
+variable "allowed_address_pairs" {
+  type = list(string)
+  default = [
+    "192.168.5.64",
+    "192.168.5.65",
+    "192.168.5.66"
+  ]
+}
+
+# Range of IP addresses to be used by metallb
 variable "metallb_ip_range" {
   type    = string
   default = "192.168.5.64-192.168.5.66"
@@ -76,4 +97,9 @@ variable "kubespray_version" {
   # v2.18.2       / v1.22.8
   # v2.18.1       / v1.22.8
   # v2.18.0       / v1.22.5
+}
+
+variable "output_dir" {
+  type    = string
+  default = "./"
 }

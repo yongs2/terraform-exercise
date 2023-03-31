@@ -11,3 +11,6 @@ variable "master_ips" {
   type = list(string)
 }
 
+variable "output_dir" {
+  type = string
+}

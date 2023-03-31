@@ -1,3 +1,32 @@
+# openstack network show management --format=json | jq '.id'
+data "openstack_networking_network_v2" "k8s-worker" {
+  name = var.network_name
+}
+
+data "openstack_networking_subnet_v2" "k8s-worker" {
+  name = var.subnet_name
+}
+
+# openstack port show k8s-worker --format=json | jq '.allowed_address_pairs'
+resource "openstack_networking_port_v2" "k8s-worker" {
+  count          = var.worker_vm_count
+  name           = format("k8s-worker-%02d", count.index + 1)
+  network_id     = data.openstack_networking_network_v2.k8s-worker.id
+  admin_state_up = "true"
+
+  fixed_ip {
+    subnet_id  = data.openstack_networking_subnet_v2.k8s-worker.id
+    ip_address = var.fixed_ip_v4[var.master_vm_count + count.index] # master 이후의 인덱스 사용
+  }
+
+  dynamic "allowed_address_pairs" {
+    for_each = var.allowed_address_pairs
+    content {
+      ip_address = allowed_address_pairs.value
+    }
+  }
+}
+
 # openstack server list; openstack server show k8s-worker
 resource "openstack_compute_instance_v2" "k8s-worker" {
   count           = var.worker_vm_count
@@ -8,8 +37,8 @@ resource "openstack_compute_instance_v2" "k8s-worker" {
   security_groups = ["default"]
 
   network {
-    name        = var.network_name
-    fixed_ip_v4 = var.fixed_ip_v4[var.master_vm_count + count.index] # master 이후의 인덱스 사용
+    name = var.network_name
+    port = openstack_networking_port_v2.k8s-worker[count.index].id
   }
 }
 
