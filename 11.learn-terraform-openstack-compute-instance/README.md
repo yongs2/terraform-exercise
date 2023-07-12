@@ -29,7 +29,7 @@ terraform apply -auto-approve
 ## test
 
 ```sh
-ssh ubuntu@$(terraform show | grep address | sed -E 's/.*"([^"]+)".*/\1/')
+ssh ubuntu@$(terraform output | grep address | sed -E 's/.*"([^"]+)".*/\1/')
 
 terraform show
 terraform state list
