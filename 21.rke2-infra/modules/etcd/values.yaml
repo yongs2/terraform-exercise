@@ -1,0 +1,13 @@
+global:
+  storageClass: '${storage_class}'
+replicaCount: ${replica_count}
+auth:
+  rbac:
+    create: false
+volumePermissions:
+  enabled: ${volume_permissions}
+service:
+  type: NodePort
+  nodePorts:
+    client: 31212
+    peer: ${node_port}
