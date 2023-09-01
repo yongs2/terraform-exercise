@@ -29,7 +29,7 @@ variable "instance_count" {
 }
 
 variable "instance_prefix" {
-  default = "kube-node"
+  default = "k8s-test"
 }
 
 variable "fixed_ip_v4" {

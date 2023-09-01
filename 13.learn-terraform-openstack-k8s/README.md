@@ -21,9 +21,10 @@ terraform validate
 
 ```sh
 export TF_VAR_fixed_ip_v4='["192.168.5.48","192.168.5.59","192.168.5.60"]'
+export TF_VAR_instance_count=2
 
-terraform plan -var "instance_prefix=k8s-test" -var "instance_count=2"
-terraform apply -auto-approve -var "instance_prefix=k8s-test" -var "instance_count=2"
+terraform plan
+terraform apply -auto-approve
 ```
 
 ## test

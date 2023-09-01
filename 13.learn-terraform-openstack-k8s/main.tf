@@ -69,7 +69,8 @@ resource "null_resource" "install_kuberernetes_master" {
   provisioner "local-exec" {
     command = <<EOF
       rm -rvf ./bin/03_kubeadm_join.sh
-      echo "echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward" > ./bin/03_kubeadm_join.sh
+      echo "#!/bin/sh" > ./bin/03_kubeadm_join.sh
+      echo "echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward" >> ./bin/03_kubeadm_join.sh
       export KUBE_JOIN_CMD=$(ssh ubuntu@${openstack_compute_instance_v2.master[0].access_ip_v4} -o StrictHostKeyChecking=no -i ${var.ssh_key_file} "kubeadm token create --print-join-command") >> ./bin/03_kubeadm_join.sh
       echo "sudo $KUBE_JOIN_CMD">> ./bin/03_kubeadm_join.sh
     EOF
