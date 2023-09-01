@@ -1,0 +1,5 @@
+prometheus:
+  prometheusSpec:
+    requests:
+      cpu: "250m"
+      memory: "250Mi"

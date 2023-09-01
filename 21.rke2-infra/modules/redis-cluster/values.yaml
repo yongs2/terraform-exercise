@@ -1,0 +1,7 @@
+usePassword: false
+global:
+  storageClass: '${storage_class}'
+volumePermissions:
+  enabled: ${volume_permissions}
+metrics:
+  enabled: true

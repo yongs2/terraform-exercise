@@ -1,0 +1,23 @@
+ingressGateways:
+  enabled: true
+  type: LoadBalancer
+overlayFile: |
+  apiVersion: install.istio.io/v1alpha1
+  kind: IstioOperator
+  spec:
+    profile: default
+    meshConfig:
+      accessLogFile: /dev/stdout
+      defaultConfig:
+        holdApplicationUntilProxyStarts: true
+    components:
+      base:
+        enabled: true
+      pilot:
+        enabled: true
+        k8s:
+          replicaCount: 2
+          resources:
+            requests:
+              cpu: 1m
+              memory: 1Mi
